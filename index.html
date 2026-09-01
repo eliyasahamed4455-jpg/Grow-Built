@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GrowBuilt — Digital Marketing That Compounds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#12205C;
+    --navy-ink:#0A1442;
+    --off-white:#F4F6FB;
+    --green:#6EBE3F;
+    --green-dark:#3F8A2A;
+    --lime:#B4E24C;
+    --slate:#8A93C2;
+    --charcoal:#141B3D;
+    --line: 38deg;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--navy-deep);
+    color:var(--off-white);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{font-family:'Sora',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 6vw;
+    background:linear-gradient(to bottom, rgba(10,20,66,0.92), rgba(10,20,66,0));
+    backdrop-filter:blur(6px);
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Sora'; font-weight:700; font-size:1.25rem; letter-spacing:-0.02em;}
+  .brand svg{width:34px;height:34px;}
+  .navlinks{display:flex; gap:34px; font-size:0.92rem; color:var(--slate);}
+  .navlinks a:hover{color:var(--lime);}
+  .nav-cta{
+    padding:10px 20px; border-radius:2px; background:var(--green); color:var(--navy-ink);
+    font-weight:600; font-size:0.88rem; border:1px solid var(--green);
+    transition:.25s;
+  }
+  .nav-cta:hover{background:transparent; color:var(--lime); border-color:var(--lime);}
+  @media(max-width:820px){ .navlinks{display:none;} }
+
+  .hamburger{
+    display:none; width:38px; height:38px; border:1px solid rgba(255,255,255,0.2); border-radius:2px;
+    align-items:center; justify-content:center; background:none; cursor:pointer; flex-direction:column; gap:5px;
+  }
+  .hamburger span{width:18px; height:2px; background:var(--off-white); display:block;}
+  @media(max-width:820px){ .hamburger{display:flex;} }
+
+  .mobile-menu{
+    display:none; position:fixed; top:0; left:0; right:0; bottom:0; z-index:60;
+    background:var(--navy-ink); flex-direction:column; padding:26px 6vw;
+  }
+  .mobile-menu.open{display:flex;}
+  .mobile-menu .close-btn{ align-self:flex-end; width:38px; height:38px; border:1px solid rgba(255,255,255,0.2); border-radius:2px; background:none; color:var(--off-white); font-size:1.2rem; }
+  .mobile-menu a{ font-family:'Sora'; font-size:1.6rem; font-weight:600; padding:20px 0; border-bottom:1px solid rgba(255,255,255,0.1); }
+  .mobile-menu .nav-cta{ margin-top:30px; text-align:center; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; align-items:center;
+    padding:0 6vw;
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 0% 100%);
+  }
+  .hero-grid{
+    display:grid; grid-template-columns: 1.15fr 0.85fr; gap:40px; align-items:center;
+    width:100%; padding-top:90px;
+  }
+  @media(max-width:820px){
+    .hero{ min-height:auto; padding-top:40px; padding-bottom:60px; clip-path:polygon(0 0,100% 0,100% 96%,0 100%); }
+    .hero-grid{ grid-template-columns:1fr; padding-top:70px; gap:30px; text-align:left; }
+    .hero-mark{ order:-1; }
+    .hero-mark svg{ max-width:230px; margin:0 auto; }
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono'; font-size:0.78rem; letter-spacing:0.12em;
+    color:var(--lime); text-transform:uppercase; margin-bottom:22px;
+  }
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--lime);}
+  .hero h1{
+    font-size:clamp(2.6rem, 5.4vw, 4.6rem);
+    font-weight:800; line-height:1.03; letter-spacing:-0.03em;
+    margin-bottom:26px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    background:linear-gradient(100deg, var(--green) 10%, var(--lime) 90%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p{
+    color:var(--slate); font-size:1.08rem; line-height:1.65; max-width:480px; margin-bottom:34px;
+  }
+  .hero-actions{display:flex; gap:16px; flex-wrap:wrap;}
+  .btn-primary{
+    padding:15px 30px; background:var(--green); color:var(--navy-ink);
+    font-weight:700; border-radius:2px; display:inline-flex; align-items:center; gap:10px;
+    transition:.25s; border:1px solid var(--green);
+  }
+  .btn-primary:hover{background:var(--lime); border-color:var(--lime); transform:translateY(-2px);}
+  .btn-ghost{
+    padding:15px 26px; border:1px solid rgba(255,255,255,0.25); border-radius:2px;
+    font-weight:600; color:var(--off-white); transition:.25s;
+  }
+  .btn-ghost:hover{border-color:var(--lime); color:var(--lime);}
+
+  .hero-mark{position:relative; display:flex; justify-content:center;}
+  .arrow-path{
+    stroke:url(#arrowGrad); stroke-width:7; fill:none; stroke-linecap:round;
+    stroke-dasharray:900; stroke-dashoffset:900;
+    animation:draw 1.8s ease forwards .3s;
+  }
+  @keyframes draw{ to{stroke-dashoffset:0;} }
+  .fade-up{opacity:0; transform:translateY(16px); animation:fadeUp .8s ease forwards;}
+  @keyframes fadeUp{ to{opacity:1; transform:translateY(0);} }
+
+  .metric-strip{
+    position:relative; z-index:2;
+    display:flex; justify-content:space-between; gap:20px;
+    padding:26px 6vw; margin-top:-1px;
+    background:var(--navy-ink); border-top:1px solid rgba(255,255,255,0.08);
+    flex-wrap:wrap;
+  }
+  .metric{flex:1; min-width:140px;}
+  .metric .num{font-family:'Sora'; font-weight:800; font-size:1.9rem; color:var(--lime);}
+  .metric .lbl{font-family:'JetBrains Mono'; font-size:0.72rem; color:var(--slate); letter-spacing:0.08em; text-transform:uppercase; margin-top:4px;}
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:110px 6vw;}
+  .section-head{max-width:640px; margin-bottom:64px;}
+  .tag{
+    font-family:'JetBrains Mono'; font-size:0.78rem; color:var(--green); letter-spacing:0.12em;
+    text-transform:uppercase; margin-bottom:14px; display:block;
+  }
+  .light .tag{color:var(--green-dark);}
+  h2{font-size:clamp(1.9rem,3.4vw,2.7rem); font-weight:700; letter-spacing:-0.02em; line-height:1.15;}
+  .light h2{color:var(--navy-ink);}
+  .section-head p{color:var(--slate); margin-top:18px; font-size:1.02rem; line-height:1.6;}
+  .light .section-head p{color:#4A5380;}
+
+  /* ---------- SERVICES ---------- */
+  .services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:rgba(255,255,255,0.09);}
+  .service{
+    background:var(--navy-deep); padding:38px 32px; transition:.3s;
+    border-top:2px solid transparent;
+  }
+  .service:hover{background:var(--navy-ink); border-top-color:var(--green);}
+  .service .idx{font-family:'JetBrains Mono'; color:var(--slate); font-size:0.8rem;}
+  .service h3{font-size:1.28rem; margin:16px 0 12px; font-weight:700;}
+  .service p{color:var(--slate); font-size:0.94rem; line-height:1.6;}
+  @media(max-width:900px){ .services-grid{grid-template-columns:1fr;} }
+
+  /* ---------- PROCESS (light section) ---------- */
+  .light{background:var(--off-white); color:var(--charcoal); clip-path: polygon(0 6%, 100% 0, 100% 100%, 0 94%);}
+  .process-list{display:flex; flex-direction:column;}
+  .process-row{
+    display:grid; grid-template-columns:90px 1fr 1.3fr; gap:30px; align-items:start;
+    padding:32px 0; border-bottom:1px solid rgba(20,27,61,0.12);
+  }
+  .process-row:first-child{border-top:1px solid rgba(20,27,61,0.12);}
+  .process-row .step{font-family:'Sora'; font-weight:800; font-size:1.6rem; color:var(--green-dark);}
+  .process-row h3{font-size:1.18rem; font-weight:700;}
+  .process-row p{color:#4A5380; font-size:0.95rem; line-height:1.6;}
+  @media(max-width:720px){ .process-row{grid-template-columns:1fr; gap:8px;} }
+
+  /* ---------- RESULTS ---------- */
+  .trust-points{display:grid; grid-template-columns:repeat(3,1fr); gap:40px; text-align:center;}
+  .trust-item h3{font-size:1.1rem; font-weight:700; margin-bottom:10px;}
+  .trust-item p{color:var(--slate); font-size:0.94rem; line-height:1.6;}
+  @media(max-width:820px){ .trust-points{grid-template-columns:1fr; gap:34px;} }
+  .quote{border-left:2px solid var(--green); padding-left:24px; margin-top:30px; color:var(--slate); font-size:1.02rem; line-height:1.65; font-style:normal; text-align:left;}
+  .quote cite{display:block; margin-top:14px; font-family:'JetBrains Mono'; font-size:0.8rem; color:var(--off-white); font-style:normal;}
+  @media(max-width:900px){ .results-wrap{grid-template-columns:1fr;} }
+
+  /* ---------- CTA ---------- */
+  .cta{
+    text-align:center; padding:130px 6vw;
+    background:radial-gradient(ellipse at center, #16267A 0%, var(--navy-deep) 70%);
+  }
+  .cta h2{max-width:700px; margin:0 auto 28px;}
+  .cta .btn-primary{margin-top:6px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding:50px 6vw; background:var(--navy-ink);
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
+  footer .brand{font-size:1.05rem;}
+  footer .fine{color:var(--slate); font-size:0.85rem; font-family:'JetBrains Mono';}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+  /* ---------- WHATSAPP FLOAT ---------- */
+  .whatsapp-float{
+    position:fixed; right:24px; bottom:24px; z-index:60;
+    width:58px; height:58px; border-radius:50%;
+    background:#25D366; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 20px rgba(0,0,0,0.35);
+    transition:.25s;
+  }
+  .whatsapp-float:hover{ transform:scale(1.08); box-shadow:0 8px 26px rgba(0,0,0,0.45); }
+  @media(max-width:600px){ .whatsapp-float{ right:16px; bottom:16px; width:52px; height:52px; } }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">
+    <svg viewBox="55 15 330 270" width="34" height="28">
+      <defs>
+        <linearGradient id="navGreen" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0" stop-color="#4C9A2E"/><stop offset="1" stop-color="#9ED14F"/>
+        </linearGradient>
+        <linearGradient id="navWhite" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#C9D3EA"/>
+        </linearGradient>
+      </defs>
+      <path d="M214 106 A84 84 0 1 0 214 214" fill="none" stroke="url(#navWhite)" stroke-width="32" stroke-linecap="round"/>
+      <rect x="150" y="145" width="66" height="28" fill="url(#navWhite)"/>
+      <rect x="118" y="212" width="15" height="26" fill="url(#navGreen)"/>
+      <rect x="141" y="196" width="15" height="42" fill="url(#navGreen)"/>
+      <path d="M230 76 h30 a46 46 0 0 1 0 92 a46 46 0 0 1 0 92 h-30 V76 Z" fill="url(#navGreen)"/>
+      <line x1="168" y1="238" x2="330" y2="76" stroke="#A9D857" stroke-width="16" stroke-linecap="round"/>
+      <path d="M278 62 L340 48 L326 112 Z" fill="#A9D857"/>
+    </svg>
+    GrowBuilt
+  </div>
+  <!-- <div class="navlinks">
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#results">Results</a>
+    <a href="#contact">Contact</a>
+  </div> -->
+  <a href="#contact" class="nav-cta">Start a project</a>
+  <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-btn" onclick="document.getElementById('mobileMenu').classList.remove('open')" aria-label="Close menu">✕</button>
+  <a href="#services" onclick="document.getElementById('mobileMenu').classList.remove('open')">Services</a>
+  <a href="#process" onclick="document.getElementById('mobileMenu').classList.remove('open')">Process</a>
+  <a href="#results" onclick="document.getElementById('mobileMenu').classList.remove('open')">Results</a>
+  <a href="#contact" onclick="document.getElementById('mobileMenu').classList.remove('open')">Contact</a>
+  <a href="#contact" class="nav-cta" onclick="document.getElementById('mobileMenu').classList.remove('open')">Start a project</a>
+</div>
+
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <span class="eyebrow fade-up">Digital marketing, built to compound</span>
+      <h1 class="fade-up" style="animation-delay:.1s">Every campaign we run <em>builds</em> on the last one.</h1>
+      <p class="fade-up" style="animation-delay:.2s">GrowBuilt plans, builds and runs the marketing engine behind growing businesses — SEO, paid media, content and automation, tied to one number: revenue.</p>
+      <div class="hero-actions fade-up" style="animation-delay:.3s">
+        <a href="#contact" class="btn-primary">Get a free audit →</a>
+        <a href="#services" class="btn-ghost">See what we do</a>
+      </div>
+    </div>
+    <div class="hero-mark">
+      <svg width="100%" viewBox="55 15 330 270" style="max-width:380px;">
+        <defs>
+          <linearGradient id="heroGreen" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stop-color="#3F8A2A"/><stop offset="1" stop-color="#B4E24C"/>
+          </linearGradient>
+          <linearGradient id="heroWhite" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#9BA8D6"/>
+          </linearGradient>
+        </defs>
+        <path d="M214 106 A84 84 0 1 0 214 214" fill="none" stroke="url(#heroWhite)" stroke-width="32" stroke-linecap="round" class="fade-up" style="animation-delay:.15s"/>
+        <rect x="150" y="145" width="66" height="28" fill="url(#heroWhite)" class="fade-up" style="animation-delay:.25s"/>
+        <rect x="118" y="212" width="15" height="26" fill="url(#heroGreen)" class="fade-up" style="animation-delay:.35s"/>
+        <rect x="141" y="196" width="15" height="42" fill="url(#heroGreen)" class="fade-up" style="animation-delay:.4s"/>
+        <path d="M230 76 h30 a46 46 0 0 1 0 92 a46 46 0 0 1 0 92 h-30 V76 Z" fill="url(#heroGreen)" class="fade-up" style="animation-delay:.2s"/>
+        <path class="arrow-path" d="M168 238 L330 76"/>
+        <path d="M278 62 L340 48 L326 112 Z" fill="#B4E24C" class="fade-up" style="animation-delay:1.5s"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<div class="metric-strip">
+  <div class="metric"><div class="num">3.1x</div><div class="lbl">Avg. ROAS lift</div></div>
+  <div class="metric"><div class="num">140+</div><div class="lbl">Brands grown</div></div>
+  <div class="metric"><div class="num">18mo</div><div class="lbl">Avg. client tenure</div></div>
+  <div class="metric"><div class="num">4.2x</div><div class="lbl">Organic traffic growth</div></div>
+</div>
+
+<section id="services">
+  <div class="section-head">
+    <span class="tag">What we do</span>
+    <h2>One team, the whole growth stack.</h2>
+    <p>No handoffs between agencies. The people who plan your strategy are the same ones optimizing your ad spend next week.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service"><div class="idx">01</div><h3>Social Media Marketing</h3><p>Content calendars, community management and organic growth across Instagram, Facebook and LinkedIn that build an audience, not just a feed.</p></div>
+    <div class="service"><div class="idx">02</div><h3>Google Ads</h3><p>Search, Shopping and Display campaigns built around cost-per-acquisition targets, tracked down to the keyword.</p></div>
+    <div class="service"><div class="idx">03</div><h3>Meta Ads</h3><p>Facebook and Instagram campaigns with creative testing and audience targeting tuned to what actually converts.</p></div>
+    <div class="service"><div class="idx">04</div><h3>Website Development</h3><p>Fast, mobile-first websites and landing pages built to convert traffic into leads and sales, not just look good.</p></div>
+    <div class="service"><div class="idx">05</div><h3>Video Production</h3><p>Reels, ad creatives and brand films shot and edited to stop the scroll and hold attention.</p></div>
+    <div class="service"><div class="idx">06</div><h3>SEO</h3><p>Technical fixes, keyword-targeted content and link building that compound your organic traffic month over month.</p></div>
+  </div>
+</section>
+
+<section id="process" class="light">
+  <div class="section-head">
+    <span class="tag">How we work</span>
+    <h2>Four stages. One direction — up.</h2>
+    <p>Every engagement follows the same build order, because skipping a stage is where most marketing budgets get wasted.</p>
+  </div>
+  <div class="process-list">
+    <div class="process-row"><div class="step">01</div><h3>Audit</h3><p>We map your current funnel, spend and channels to find where growth is actually being lost.</p></div>
+    <div class="process-row"><div class="step">02</div><h3>Strategy</h3><p>A 90-day plan with clear channel priorities, budgets and the metric each one is accountable for.</p></div>
+    <div class="process-row"><div class="step">03</div><h3>Build</h3><p>Campaigns, pages and automations go live — tracked from day one so nothing runs blind.</p></div>
+    <div class="process-row"><div class="step">04</div><h3>Scale</h3><p>We double down on what's converting and cut what isn't, reporting results in plain numbers, weekly.</p></div>
+  </div>
+</section>
+
+<section id="results">
+  <div class="section-head" style="margin-bottom:56px;">
+    <span class="tag">Proof, not promises</span>
+    <h2>Growth you can trace back to a decision we made.</h2>
+  </div>
+  <div class="trust-points">
+    <div class="trust-item"><h3>Fixed monthly reporting</h3><p>Plain-language numbers every week, not a dashboard you have to decode.</p></div>
+    <div class="trust-item"><h3>One team, every channel</h3><p>Ads, content, site and video handled together, so nothing gets built in a silo.</p></div>
+    <div class="trust-item"><h3>No lock-in contracts</h3><p>You stay because it's working — month-to-month, cancel anytime.</p></div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <span class="tag">Let's talk</span>
+  <h2>Tell us your revenue goal. We'll build the plan to reach it.</h2>
+  <a href="mailto:growbuilt.in@gmail.com" class="btn-primary">growbuilt.in@gmail.com →</a>
+</section>
+
+<footer>
+  <div class="brand">
+    <svg viewBox="55 15 330 270" width="26" height="21">
+      <defs>
+        <linearGradient id="ftGreen" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0" stop-color="#4C9A2E"/><stop offset="1" stop-color="#9ED14F"/>
+        </linearGradient>
+        <linearGradient id="ftWhite" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#C9D3EA"/>
+        </linearGradient>
+      </defs>
+      <path d="M214 106 A84 84 0 1 0 214 214" fill="none" stroke="url(#ftWhite)" stroke-width="32" stroke-linecap="round"/>
+      <rect x="150" y="145" width="66" height="28" fill="url(#ftWhite)"/>
+      <rect x="118" y="212" width="15" height="26" fill="url(#ftGreen)"/>
+      <rect x="141" y="196" width="15" height="42" fill="url(#ftGreen)"/>
+      <path d="M230 76 h30 a46 46 0 0 1 0 92 a46 46 0 0 1 0 92 h-30 V76 Z" fill="url(#ftGreen)"/>
+      <line x1="168" y1="238" x2="330" y2="76" stroke="#A9D857" stroke-width="16" stroke-linecap="round"/>
+      <path d="M278 62 L340 48 L326 112 Z" fill="#A9D857"/>
+    </svg>
+    GrowBuilt
+  </div>
+  <div class="fine">© 2026 GrowBuilt Digital Marketing. Chennai, India.</div>
+</footer>
+
+<a href="https://wa.me/919941879385?text=Hi%20GrowBuilt%2C%20I%27d%20like%20to%20know%20more%20about%20your%20services"
+   class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32" width="30" height="30" fill="#fff">
+    <path d="M16 3C9.4 3 4 8.4 4 15c0 2.3.6 4.4 1.7 6.3L4 29l7.9-1.6c1.8.9 3.9 1.5 6.1 1.5 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-2 0-3.9-.5-5.5-1.5l-.4-.2-4.7 1 1-4.6-.3-.4C4.9 17.6 4.3 15.9 4.3 15 4.3 9.5 9.5 5.3 16 5.3S27.7 9.5 27.7 15 22.5 24.8 16 24.8z"/>
+    <path d="M12.3 10.4c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.2 5 4.4 2.5 1 3 .8 3.5.8.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.2-.2-.5-.3l-2-1c-.3-.1-.5-.1-.6.1l-.9 1.1c-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2z"/>
+  </svg>
+</a>
+
+</body>
+</html>
